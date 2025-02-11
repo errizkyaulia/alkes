@@ -4,102 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pengaduan Alat Kesehatan</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            margin-top: 15px;
-            background: #28a745;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #218838;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h2>Form Pengaduan Alat Kesehatan</h2>
         <form>
-            <label for="tanggal">Tanggal:</label>
-            <input type="date" id="tanggal" name="tanggal" required readonly>
+            <div class="step active" id="step1">
+                <label for="tanggal">Tanggal:</label>
+                <input type="date" id="tanggal" name="tanggal" required readonly>
 
-            <label for="nama">Nama Pelapor:</label>
-            <input type="text" id="nama" name="nama" required>
+                <h3>Data Pelapor</h3>
+                <label for="nama">Nama Pelapor:</label>
+                <input type="text" id="nama" name="nama" required>
 
-            <label for="telepon">No Telepon Pelapor:</label>
-            <input type="tel" id="telepon" name="telepon" required>
+                <label for="telepon">No Telepon Pelapor:</label>
+                <input type="tel" id="telepon" name="telepon" required>
 
-            <label for="email">Email Pelapor:</label>
-            <input type="email" id="email" name="email" required>
+                <label for="email">Email Pelapor:</label>
+                <input type="email" id="email" name="email" required>
 
-            <label for="faskes">Faskes:</label>
-            <select id="faskes" name="faskes" required>
-                <option value="RS">Rumah Sakit</option>
-                <option value="Puskesmas">Puskesmas</option>
-                <option value="Lab">Laboratorium</option>
-            </select>
+                <div class="buttons">
+                    <button type="button" onclick="validateAndNext(1)">Selanjutnya</button>
+                </div>
+            </div>
 
-            <label for="provinsi">Alamat Provinsi:</label>
-            <select id="provinsi" name="provinsi" required>
-                <option value="">-- PILIH PROVINSI --</option>
-            </select>
+            <div class="step" id="step2">
+                <h3>Data Faskes</h3>
+                <label for="faskes">Faskes:</label>
+                <select id="faskes" name="faskes" required>
+                    <option value="RS">Rumah Sakit</option>
+                    <option value="Puskesmas">Puskesmas</option>
+                    <option value="Lab">Laboratorium</option>
+                </select>
 
-            <label for="kota">Kabupaten/Kota:</label>
-            <select id="kota" name="kota" required>
-                <option value="">-- PILIH KABUPATEN/KOTA --</option>
-            </select>
+                <label for="nama_faskes">Nama Faskes - Kode Faskes:</label>
+                <input type="text" id="nama_faskes" name="nama_faskes" required>
 
-            <label for="telepon_faskes">No Telpon Faskes:</label>
-            <input type="tel" id="telepon_faskes" name="telepon_faskes" required>
+                <label for="provinsi">Alamat Provinsi:</label>
+                <select id="provinsi" name="provinsi" required>
+                    <option value="">-- PILIH PROVINSI --</option>
+                </select>
 
-            <label for="sn_alat">S/N Alat:</label>
-            <input type="text" id="sn_alat" name="sn_alat" required>
+                <label for="kota">Kabupaten/Kota:</label>
+                <select id="kota" name="kota" required>
+                    <option value="">-- PILIH KABUPATEN/KOTA --</option>
+                </select>
 
-            <label for="tipe_alat">Tipe Alat:</label>
-            <select id="tipe_alat" name="tipe_alat" required>
-                <option value="alat1">Tipe 1</option>
-                <option value="alat2">Tipe 2</option>
-                <option value="alat3">Tipe 3</option>
-            </select>
+                <label for="telepon_faskes">No Telpon Faskes:</label>
+                <input type="tel" id="telepon_faskes" name="telepon_faskes" required>
 
-            <label for="keluhan">Keluhan:</label>
-            <textarea id="keluhan" name="keluhan" rows="4" required></textarea>
+                <div class="buttons">
+                    <button type="button" onclick="prevStep(2)">Kembali</button>
+                    <button type="button" onclick="validateAndNext(2)">Selanjutnya</button>
+                </div>
+            </div>
 
-            <label for="foto">Upload Foto:</label>
-            <input type="file" id="foto" name="foto" accept="image/*" required>
+            <div class="step" id="step3">
+                <h3>Data Keluhan Alat</h3>
+                <label for="nama_alat">Nama Alat:</label>
+                <input type="text" id="nama_alat" name="nama_alat" required>
 
-            <button type="submit">Kirim</button>
+                <label for="sn_alat">S/N Alat:</label>
+                <input type="text" id="sn_alat" name="sn_alat" required>
+
+                <label for="tipe_alat">Tipe Alat:</label>
+                <select id="tipe_alat" name="tipe_alat" required>
+                    <option value="alat1">Tipe 1</option>
+                    <option value="alat2">Tipe 2</option>
+                    <option value="alat3">Tipe 3</option>
+                </select>
+
+                <label for="keluhan">Keluhan:</label>
+                <textarea id="keluhan" name="keluhan" rows="4" required></textarea>
+
+                <label for="foto">Upload Foto:</label>
+                <input type="file" id="foto" name="foto" accept="image/*" required>`
+
+                <div class="buttons">
+                    <button type="button" onclick="prevStep(3)">Kembali</button>
+                    <button type="button" onclick="validateAndNext(3)">Selanjutnya</button>
+                </div>
+            </div>
+
+            <div class="step" id="step4">
+                <h3>Preview Data Keluhan</h3>
+                <p id="previewData"></p>
+
+                <div class="buttons">
+                    <button type="button" onclick="prevStep(4)">Kembali</button>
+                    <button type="submit">Kirim</button>
+                </div>
+            </div>
+
         </form>
     </div>
 
+
+    <script>
+        function validateAndNext(currentStep) {
+            let inputs = document.querySelectorAll(`#step${currentStep} input, #step${currentStep} select, #step${currentStep} textarea`);
+            for (let input of inputs) {
+                if (!input.value) {
+                    alert("Harap lengkapi semua data sebelum melanjutkan.");
+                    return;
+                }
+            }
+            nextStep(currentStep);
+        }
+
+        function nextStep(step) {
+            document.getElementById(`step${step}`).classList.remove("active");
+            document.getElementById(`step${step + 1}`).classList.add("active");
+
+            if(step === 3) {
+                let previewData = document.getElementById("previewData");
+                let form = document.querySelector("form");
+                let formData = new FormData(form);
+
+                let data = "";
+                for(let pair of formData.entries()) {
+                    data += `${pair[0]}: ${pair[1]}\n`;
+                }
+
+                previewData.textContent = data;
+            }
+        }
+
+        function prevStep(step) {
+            document.getElementById(`step${step}`).classList.remove("active");
+            document.getElementById(`step${step - 1}`).classList.add("active");
+        }
+    </script>
     <script>
         // Set tanggal otomatis ke hari ini
         document.getElementById("tanggal").valueAsDate = new Date();
