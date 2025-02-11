@@ -122,12 +122,14 @@
             let form = document.querySelector("form");
             let formData = new FormData(form);
 
-            let data = "";
+            // gunakan format ul li
+            let data = "<ul>";
             for(let pair of formData.entries()) {
-                data += `${pair[0]}: ${pair[1]}\n`;
+                data += `<li>${pair[0]}: ${pair[1]}</li>`;
             }
+            data += "</ul>";
 
-            previewData.textContent = data;
+            previewData.innerHTML = data;
         }
     }
 
@@ -147,8 +149,9 @@
             let provinsiSelect = document.getElementById("provinsi");
             data.forEach(prov => {
                 let option = document.createElement("option");
-                option.value = prov.id;
+                option.value = prov.name; // Menggunakan nama sebagai value
                 option.textContent = prov.name;
+                option.setAttribute("data-id", prov.id); // Simpan ID dalam atribut data-id
                 provinsiSelect.appendChild(option);
             });
         })
@@ -156,21 +159,25 @@
 
     // Mengambil daftar kabupaten/kota berdasarkan provinsi yang dipilih
     document.getElementById("provinsi").addEventListener("change", function() {
-        let provinsiId = this.value;
+        let selectedOption = this.options[this.selectedIndex];
+        let provinsiId = selectedOption.getAttribute("data-id"); // Ambil ID dari atribut data-id
+
         let kotaSelect = document.getElementById("kota");
         kotaSelect.innerHTML = "<option value=''>-- PILIH KABUPATEN/KOTA --</option>"; // Reset opsi kota
 
-        fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinsiId}.json`)
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(kota => {
-                    let option = document.createElement("option");
-                    option.value = kota.id;
-                    option.textContent = kota.name;
-                    kotaSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error("Gagal mengambil data kota", error));
+        if (provinsiId) {
+            fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinsiId}.json`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(kota => {
+                        let option = document.createElement("option");
+                        option.value = kota.name;
+                        option.textContent = kota.name;
+                        kotaSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Gagal mengambil data kota", error));
+        }
     });
 </script>
 </body>

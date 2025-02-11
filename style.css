@@ -33,6 +33,36 @@ input, select, textarea {
 .step.active {
     display: block;
 }
+#previewData {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 400px;
+    font-family: Arial, sans-serif;
+}
+
+#previewData ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#previewData li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+#previewData li:last-child {
+    border-bottom: none;
+}
+
+#previewData strong {
+    color: #333;
+}
+
 button {
     margin-top: 15px;
     background: #28a745;
